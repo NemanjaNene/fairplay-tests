@@ -1,0 +1,148 @@
+name: Cypress E2E Tests
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main]
+  schedule:
+    # Run regression tests nightly at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  # Smoke tests - Run on every PR
+  smoke-tests:
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [chrome]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run Smoke Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: ${{ matrix.browser }}
+          command: npm run test:smoke
+          config-file: cypress.config.js
+        env:
+          CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
+      
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-smoke
+          path: cypress/screenshots
+          retention-days: 7
+      
+      - name: Upload videos on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-smoke
+          path: cypress/videos
+          retention-days: 7
+
+  # Regression tests - Run nightly
+  regression-tests:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run Regression Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: ${{ matrix.browser }}
+          command: npm run test:regression
+          config-file: cypress.config.js
+        env:
+          CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
+      
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots-regression-${{ matrix.browser }}
+          path: cypress/screenshots
+          retention-days: 14
+      
+      - name: Upload videos on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos-regression-${{ matrix.browser }}
+          path: cypress/videos
+          retention-days: 14
+      
+      - name: Notify on failure (optional)
+        if: failure()
+        run: |
+          echo "❌ Regression tests failed on ${{ matrix.browser }}"
+          # Add Slack/email notification here
+
+  # Mobile tests - Run nightly
+  mobile-tests:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run Mobile Tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          command: npm run test:mobile
+          config-file: cypress.config.js
+        env:
+          CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
+      
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-mobile-tests
+          path: |
+            cypress/screenshots
+            cypress/videos
+          retention-days: 7

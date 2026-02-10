@@ -1,0 +1,39 @@
+{
+  "name": "fairplay-cypress-tests",
+  "version": "1.0.0",
+  "description": "Senior-level Cypress E2E test automation for FairPlay mobile data service",
+  "main": "index.js",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run",
+    "test:smoke": "cypress run --spec 'cypress/e2e/smoke/**/*.cy.js'",
+    "test:regression": "cypress run --spec 'cypress/e2e/regression/**/*.cy.js'",
+    "test:referral": "cypress run --spec 'cypress/e2e/regression/referral/**/*.cy.js'",
+    "test:affiliate": "cypress run --spec 'cypress/e2e/regression/referral/affiliate-tracking.cy.js'",
+    "test:compatibility": "cypress run --spec 'cypress/e2e/regression/compatibility/**/*.cy.js'",
+    "test:chrome": "cypress run --browser chrome",
+    "test:firefox": "cypress run --browser firefox",
+    "test:edge": "cypress run --browser edge",
+    "test:headed": "cypress run --headed",
+    "test:mobile": "cypress run --config viewportWidth=375,viewportHeight=667",
+    "test:parallel": "cypress run --parallel --record --key YOUR_RECORD_KEY",
+    "report": "cypress run --reporter mochawesome",
+    "clean": "rm -rf cypress/screenshots cypress/videos"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "testing",
+    "automation",
+    "qa",
+    "fairplay",
+    "esim"
+  ],
+  "author": "QA Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^10.2.0",
+    "cypress": "^14.5.4"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "flex": {
+    "6_month": {
+      "name": "6-Month Subscription",
+      "duration": 6,
+      "startingPrice": 35,
+      "currency": "€",
+      "dataStart": "5 GB",
+      "unlimitedThreshold": "50 GB",
+      "unlimitedPrice": 85
+    },
+    "12_month": {
+      "name": "12-Month Subscription",
+      "duration": 12,
+      "startingPrice": 30,
+      "currency": "€",
+      "dataStart": "5 GB",
+      "unlimitedThreshold": "50 GB",
+      "unlimitedPrice": 90
+    },
+    "24_month": {
+      "name": "24-Month Subscription",
+      "duration": 24,
+      "startingPrice": 25,
+      "currency": "€",
+      "dataStart": "5 GB",
+      "unlimitedThreshold": "50 GB",
+      "unlimitedPrice": 95
+    }
+  },
+  "dayPass": {
+    "3_day": {
+      "name": "3 Days",
+      "duration": 3,
+      "price": 25,
+      "currency": "€",
+      "pricePerDay": 8.33,
+      "data": "Unlimited"
+    },
+    "7_day": {
+      "name": "7 Days",
+      "duration": 7,
+      "price": 50,
+      "currency": "€",
+      "pricePerDay": 7.14,
+      "data": "Unlimited"
+    },
+    "14_day": {
+      "name": "14 Days",
+      "duration": 14,
+      "price": 75,
+      "currency": "€",
+      "pricePerDay": 5.36,
+      "data": "Unlimited"
+    }
+  }
+}

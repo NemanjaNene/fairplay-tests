@@ -1,0 +1,155 @@
+/**
+ * TEMPLATE: Purchase Flow Tests
+ * Copy this to e2e/regression/purchase/ when ready
+ * Rename to purchase-flow.cy.js
+ */
+
+describe('Purchase Flow - FairPlay Flex', { tags: ['@regression', '@purchase', '@critical'] }, () => {
+  
+  let testUser;
+  
+  beforeEach(() => {
+    // Login before each purchase test
+    testUser = Cypress.env('testUser');
+    cy.loginViaAPI(testUser.email, testUser.password);
+  });
+
+  it('should purchase 6-month Flex plan successfully', () => {
+    cy.fixture('plans').then(plans => {
+      const plan = plans.flex['6_month'];
+      
+      // Navigate to plans
+      cy.visit('/plans');
+      
+      // Select 6-month plan
+      cy.get('[data-testid="select-flex-6-month"]').click();
+      
+      // Verify checkout page
+      cy.url().should('include', '/checkout');
+      cy.contains(plan.name).should('be.visible');
+      cy.contains(`€ ${plan.startingPrice}`).should('be.visible');
+      
+      // Fill payment details
+      cy.fixture('test-cards').then(cards => {
+        cy.fillCreditCard(cards.cards.visa_success);
+      });
+      
+      // Submit payment
+      cy.submitPayment();
+      
+      // Verify success
+      cy.url().should('include', '/confirmation');
+      cy.contains(/success|confirmed|thank you/i).should('be.visible');
+      
+      // Verify eSIM details
+      cy.get('[data-testid="esim-qr-code"]').should('be.visible');
+      cy.get('[data-testid="download-esim"]').should('be.visible');
+    });
+  });
+
+  it('should purchase 7-day pass successfully', () => {
+    cy.fixture('plans').then(plans => {
+      const plan = plans.dayPass['7_day'];
+      
+      cy.visit('/plans');
+      cy.get('[data-testid="select-day-pass-7"]').click();
+      
+      // Checkout
+      cy.url().should('include', '/checkout');
+      cy.contains(plan.name).should('be.visible');
+      cy.contains(`€ ${plan.price}`).should('be.visible');
+      
+      // Payment
+      cy.fixture('test-cards').then(cards => {
+        cy.fillCreditCard(cards.cards.mastercard_success);
+      });
+      
+      cy.submitPayment();
+      
+      // Verify
+      cy.contains(/success/i).should('be.visible');
+    });
+  });
+
+  it('should handle payment declined gracefully', () => {
+    cy.visit('/plans');
+    cy.get('[data-testid="select-flex-12-month"]').click();
+    
+    // Use declined test card
+    cy.fixture('test-cards').then(cards => {
+      cy.verifyPaymentDeclined(cards.cards.visa_declined);
+    });
+    
+    // Verify error message
+    cy.contains(/declined|failed|error/i).should('be.visible');
+    
+    // User should still be on checkout page (can retry)
+    cy.url().should('include', '/checkout');
+  });
+
+  it('should apply referral discount at checkout', () => {
+    const referralCode = 'FRIEND2026';
+    
+    // Visit with referral code
+    cy.visitWithReferral(referralCode);
+    
+    // Select plan
+    cy.visit('/plans');
+    cy.get('[data-testid="select-flex-6-month"]').click();
+    
+    // At checkout, referral should be applied
+    cy.get('[data-testid="applied-referral"]').should('contain', referralCode);
+    
+    // Discount should be visible
+    cy.get('[data-testid="discount-amount"]').should('be.visible');
+  });
+
+  it('should validate credit card number format', () => {
+    cy.visit('/plans');
+    cy.get('[data-testid="select-flex-6-month"]').click();
+    
+    // Invalid card number
+    cy.fillCreditCard({
+      number: '1234 5678 9012',
+      cvc: '123',
+      expiry: '12/25',
+      name: 'Test User'
+    });
+    
+    // Try to submit
+    cy.get('[data-testid="submit-payment"]').click();
+    
+    // Should show validation error
+    cy.contains(/invalid.*card|card.*number/i).should('be.visible');
+  });
+
+  it('should prevent double payment submission', () => {
+    cy.visit('/plans');
+    cy.get('[data-testid="select-flex-6-month"]').click();
+    
+    cy.fixture('test-cards').then(cards => {
+      cy.fillCreditCard(cards.cards.visa_success);
+    });
+    
+    // Click submit button
+    cy.get('[data-testid="submit-payment"]').click();
+    
+    // Button should be disabled immediately
+    cy.get('[data-testid="submit-payment"]').should('be.disabled');
+    
+    // Loading indicator should appear
+    cy.get('[data-testid="payment-processing"]').should('be.visible');
+  });
+
+  it('should display order summary before payment', () => {
+    cy.visit('/plans');
+    cy.get('[data-testid="select-flex-12-month"]').click();
+    
+    // Verify order summary
+    cy.get('[data-testid="order-summary"]').should('be.visible');
+    cy.get('[data-testid="plan-name"]').should('contain', '12-Month');
+    cy.get('[data-testid="starting-price"]').should('contain', '€ 30');
+    cy.get('[data-testid="billing-period"]').should('contain', 'month');
+  });
+
+});

@@ -1,0 +1,106 @@
+/**
+ * TEMPLATE: Login Flow Tests
+ * Copy this to e2e/regression/auth/ when ready
+ * Rename to login-flow.cy.js
+ */
+
+import { generateUserData } from '../../support/helpers/data-generator';
+
+describe('Login Flow', { tags: ['@regression', '@auth', '@critical'] }, () => {
+  
+  const testUser = {
+    email: 'test-user@fairplay-qa.com',
+    password: 'TestPass123!'
+  };
+
+  beforeEach(() => {
+    cy.visit('/login');
+  });
+
+  it('should login with valid credentials', () => {
+    cy.login(testUser.email, testUser.password);
+    
+    // Verify logged in
+    cy.url().should('include', '/dashboard');
+    cy.get('[data-testid="user-menu"]').should('be.visible');
+  });
+
+  it('should show error with invalid email', () => {
+    cy.login('invalid@test.com', testUser.password);
+    
+    // Verify error message
+    cy.contains(/invalid|incorrect|not found/i).should('be.visible');
+  });
+
+  it('should show error with wrong password', () => {
+    cy.login(testUser.email, 'WrongPassword123!');
+    
+    cy.contains(/invalid|incorrect|wrong/i).should('be.visible');
+  });
+
+  it('should require email field', () => {
+    cy.get('[data-testid="password"]').typeWithClear(testUser.password);
+    cy.get('[data-testid="login-button"]').click();
+    
+    // Check HTML5 validation or custom error
+    cy.get('[data-testid="email"]').then($input => {
+      expect($input[0].validity.valid).to.be.false;
+    });
+  });
+
+  it('should require password field', () => {
+    cy.get('[data-testid="email"]').typeWithClear(testUser.email);
+    cy.get('[data-testid="login-button"]').click();
+    
+    cy.get('[data-testid="password"]').then($input => {
+      expect($input[0].validity.valid).to.be.false;
+    });
+  });
+
+  it('should have "Forgot Password" link', () => {
+    cy.contains(/forgot password/i)
+      .should('be.visible')
+      .and('have.attr', 'href');
+  });
+
+  it('should have "Register" link', () => {
+    cy.contains(/sign up|register|create account/i)
+      .should('be.visible')
+      .and('have.attr', 'href');
+  });
+
+  it('should redirect to previous page after login', () => {
+    // Try to access protected page
+    cy.visit('/dashboard');
+    
+    // Should redirect to login
+    cy.url().should('include', '/login');
+    
+    // Login
+    cy.login(testUser.email, testUser.password);
+    
+    // Should redirect back to dashboard
+    cy.url().should('include', '/dashboard');
+  });
+
+  it('should persist session across page refresh', () => {
+    cy.login(testUser.email, testUser.password);
+    
+    // Refresh page
+    cy.reload();
+    
+    // Should still be logged in
+    cy.url().should('include', '/dashboard');
+    cy.get('[data-testid="user-menu"]').should('be.visible');
+  });
+
+  it('should logout successfully', () => {
+    cy.login(testUser.email, testUser.password);
+    cy.logout();
+    
+    // Verify logged out
+    cy.url().should('not.include', '/dashboard');
+    cy.getCookie('auth_token').should('not.exist');
+  });
+
+});

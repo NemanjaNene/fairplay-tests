@@ -1,0 +1,28 @@
+{
+  "testUsers": [
+    {
+      "email": "test-user-01@fairplay-qa.com",
+      "password": "TestPass123!",
+      "firstName": "Test",
+      "lastName": "User",
+      "phone": "+385991234567",
+      "country": "HR"
+    },
+    {
+      "email": "test-user-02@fairplay-qa.com",
+      "password": "TestPass123!",
+      "firstName": "Demo",
+      "lastName": "Account",
+      "phone": "+385991234568",
+      "country": "DE"
+    }
+  ],
+  "premiumUsers": [
+    {
+      "email": "premium-user-01@fairplay-qa.com",
+      "password": "PremiumPass123!",
+      "plan": "flex-12",
+      "status": "active"
+    }
+  ]
+}
