@@ -84,6 +84,19 @@ describe('SEO - Meta Tags Validation', { tags: ['@regression', '@seo'] }, () => 
       const canonical = $link.attr('href');
       expect(canonical).to.include('https://');
       cy.task('log', `[SEO] Canonical URL: ${canonical}`);
+      
+      // Check if canonical points to current domain
+      cy.url().then(currentUrl => {
+        const currentDomain = new URL(currentUrl).hostname;
+        const canonicalDomain = new URL(canonical).hostname;
+        
+        if (currentDomain !== canonicalDomain) {
+          cy.task('log', `[WARNING] Canonical domain (${canonicalDomain}) differs from current domain (${currentDomain})`);
+          cy.task('log', '[WARNING] This may cause SEO issues - search engines will index the canonical domain instead!');
+        } else {
+          cy.task('log', '[SEO] Canonical URL matches current domain');
+        }
+      });
     });
   });
 
