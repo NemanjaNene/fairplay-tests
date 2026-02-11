@@ -48,7 +48,7 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
       const hasList = $body.find('ul li, [class*="country"]').length > 10;
       
       if (hasMap) {
-        cy.task('log', `🗺️ Coverage map found`);
+        cy.task('log', `[MAP] Coverage map found`);
       } else if (hasList) {
         cy.task('log', ` Coverage list found`);
       } else {

@@ -55,7 +55,7 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
             .first()
             .should('have.attr', 'href')
             .then(href => {
-              cy.task('log', `[PASS] ${platform} link found: ${href}`);
+              cy.task('log', `[FOUND] ${platform} link found: ${href}`);
             });
         } else {
           cy.task('log', `[WARNING] ${platform} link not found (may not be present)`);
@@ -84,7 +84,6 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
     cy.scrollTo(0, 500);
     cy.wait(500);
     
-    // Direktno traži link sa "help" u href-u
     cy.get('a[href*="help"]')
       .should('exist')
       .and('have.attr', 'href')

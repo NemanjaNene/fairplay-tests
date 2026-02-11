@@ -17,7 +17,7 @@ describe('Page Performance - Load Time', { tags: ['@smoke', '@performance'] }, (
       const loadTime = Date.now() - startTime;
       const loadTimeSeconds = (loadTime / 1000).toFixed(2);
       
-      cy.task('log', `⏱️ Page load time: ${loadTimeSeconds}s`);
+      cy.task('log', `[TIME] Page load time: ${loadTimeSeconds}s`);
       
       expect(loadTime).to.be.lessThan(5000); // 5 seconds max
     });
