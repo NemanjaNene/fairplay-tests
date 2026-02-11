@@ -12,6 +12,8 @@
     "test:referral": "cypress run --spec 'cypress/e2e/regression/referral/**/*.cy.js'",
     "test:affiliate": "cypress run --spec 'cypress/e2e/regression/referral/affiliate-tracking.cy.js'",
     "test:compatibility": "cypress run --spec 'cypress/e2e/regression/compatibility/**/*.cy.js'",
+    "test:seo": "cypress run --spec 'cypress/e2e/regression/seo/**/*.cy.js'",
+    "test:forms": "cypress run --spec 'cypress/e2e/regression/forms/**/*.cy.js'",
     "test:chrome": "cypress run --browser chrome",
     "test:firefox": "cypress run --browser firefox",
     "test:edge": "cypress run --browser edge",
