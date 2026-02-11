@@ -105,7 +105,7 @@ describe('Page Performance - Load Time', { tags: ['@smoke', '@performance'] }, (
         const cacheControl = res.headers['cache-control'];
         
         if (cacheControl) {
-          cy.task('log', `📦 Cache-Control for ${req.url.split('/').pop()}: ${cacheControl}`);
+          cy.task('log', `[CACHE] Cache-Control for ${req.url.split('/').pop()}: ${cacheControl}`);
         } else {
           cy.task('log', `[WARNING] No cache-control for: ${req.url.split('/').pop()}`);
         }

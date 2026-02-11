@@ -59,7 +59,7 @@ module.exports = defineConfig({
       // Task: Log to terminal
       on('task', {
         log(message) {
-          console.log(`\n📋 [CYPRESS LOG]: ${message}\n`);
+          console.log(`\n[CYPRESS LOG]: ${message}\n`);
           return null;
         },
         
@@ -67,7 +67,7 @@ module.exports = defineConfig({
           const { testName, error, url, timestamp } = details;
           console.error(`
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-❌ TEST FAILURE REPORT
+[FAIL] TEST FAILURE REPORT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Test: ${testName}
 Error: ${error}

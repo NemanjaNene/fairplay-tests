@@ -68,7 +68,7 @@ describe('Affiliate Tracking - Cookie Persistence', { tags: ['@regression', '@af
     cy.waitForPageLoad();
     cy.wait(1000);
     
-    cy.task('log', `📊 UTM parameters: ${queryString}`);
+    cy.task('log', `[DATA] UTM parameters: ${queryString}`);
     
     // Check if any UTM data captured
     cy.window().then(win => {

@@ -99,7 +99,7 @@ describe('Referral Tracking - Cookie Persistence', { tags: ['@regression', '@ref
           const expiryDate = new Date(cookie.expiry * 1000);
           const daysUntilExpiry = (expiryDate - Date.now()) / (1000 * 60 * 60 * 24);
           
-          cy.task('log', `📊 Days until expiry: ${daysUntilExpiry.toFixed(0)}`);
+          cy.task('log', `[DATA] Days until expiry: ${daysUntilExpiry.toFixed(0)}`);
           
           // Should be at least 7 days
           expect(daysUntilExpiry).to.be.greaterThan(7);
