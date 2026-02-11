@@ -20,7 +20,7 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
       .and('have.attr', 'href')
       .then(href => {
         expect(href).to.include(EXTERNAL_LINKS.APP_STORE);
-        cy.task('log', `✅ App Store link: ${href}`);
+        cy.task('log', `[PASS] App Store link: ${href}`);
       });
   });
 
@@ -31,7 +31,7 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
       .and('have.attr', 'href')
       .then(href => {
         expect(href).to.include(EXTERNAL_LINKS.PLAY_STORE);
-        cy.task('log', `✅ Google Play link: ${href}`);
+        cy.task('log', `[PASS] Google Play link: ${href}`);
       });
   });
 
@@ -55,10 +55,10 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
             .first()
             .should('have.attr', 'href')
             .then(href => {
-              cy.task('log', `✅ ${platform} link found: ${href}`);
+              cy.task('log', `[PASS] ${platform} link found: ${href}`);
             });
         } else {
-          cy.task('log', `⚠️ ${platform} link not found (may not be present)`);
+          cy.task('log', `[WARNING] ${platform} link not found (may not be present)`);
         }
       });
     });
@@ -73,7 +73,7 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
         const hasSecurity = rel.includes('noopener') || rel.includes('noreferrer');
         
         if (!hasSecurity) {
-          cy.task('log', `⚠️ External link missing security rel: ${$link.attr('href')}`);
+          cy.task('log', `[WARNING] External link missing security rel: ${$link.attr('href')}`);
         }
       }
     });
@@ -90,7 +90,7 @@ describe('External Links - Validation', { tags: ['@smoke', '@links'] }, () => {
       .and('have.attr', 'href')
       .then(href => {
         expect(href).to.not.be.empty;
-        cy.task('log', `✅ Help Center link: ${href}`);
+        cy.task('log', `[PASS] Help Center link: ${href}`);
       });
   });
 

@@ -59,7 +59,7 @@ Cypress.Commands.add('checkConsoleErrors', () => {
   cy.window().then((win) => {
     const errors = win.console.errors || [];
     if (errors.length > 0) {
-      cy.log(`⚠️ Console errors detected: ${errors.length}`);
+      cy.log(`[WARNING] Console errors detected: ${errors.length}`);
       errors.forEach(err => cy.log(`   - ${err}`));
     }
   });

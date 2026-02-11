@@ -46,7 +46,7 @@ describe('Affiliate Tracking - Cookie Persistence', { tags: ['@regression', '@af
     cy.wait(1000);
     
     // Both should be stored
-    cy.task('log', `🔍 Checking both referral (${refCode}) and affiliate (${affId})`);
+    cy.task('log', `[DEBUG] Checking both referral (${refCode}) and affiliate (${affId})`);
     
     cy.verifyReferralStored(refCode);
     cy.verifyAffiliateStored(affId);
@@ -112,7 +112,7 @@ describe('Affiliate Tracking - Cookie Persistence', { tags: ['@regression', '@af
       cy.visitWithAffiliate(id);
       cy.wait(1000);
       
-      cy.task('log', `✅ Affiliate ID format accepted: ${id}`);
+      cy.task('log', `[PASS] Affiliate ID format accepted: ${id}`);
     });
   });
 
@@ -130,7 +130,7 @@ describe('Affiliate Tracking - Cookie Persistence', { tags: ['@regression', '@af
       // Page should load without XSS execution
       cy.get('body').should('be.visible');
       
-      cy.task('log', `✅ Malicious affiliate ID blocked: ${id}`);
+      cy.task('log', `[PASS] Malicious affiliate ID blocked: ${id}`);
     });
   });
 

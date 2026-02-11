@@ -49,7 +49,7 @@ Cypress.Commands.add('verifyReferralStored', (expectedCode) => {
     cy.getCookie(cookieName).then((cookie) => {
       if (cookie && cookie.value === expectedCode) {
         found = true;
-        cy.task('log', `✅ Referral code found in cookie: ${cookieName} = ${cookie.value}`);
+        cy.task('log', `[PASS] Referral code found in cookie: ${cookieName} = ${cookie.value}`);
       }
     });
   });
@@ -61,7 +61,7 @@ Cypress.Commands.add('verifyReferralStored', (expectedCode) => {
       const value = win.localStorage.getItem(key);
       if (value === expectedCode) {
         found = true;
-        cy.task('log', `✅ Referral code found in localStorage: ${key} = ${value}`);
+        cy.task('log', `[PASS] Referral code found in localStorage: ${key} = ${value}`);
       }
     });
   });
@@ -69,7 +69,7 @@ Cypress.Commands.add('verifyReferralStored', (expectedCode) => {
   // If not found, log warning (don't fail test yet - implementation may vary)
   cy.then(() => {
     if (!found) {
-      cy.task('log', `⚠️ Referral code not found in cookies or localStorage. Check implementation.`);
+      cy.task('log', `[WARNING] Referral code not found in cookies or localStorage. Check implementation.`);
     }
   });
 });
@@ -90,7 +90,7 @@ Cypress.Commands.add('verifyAffiliateStored', (expectedId) => {
     cy.getCookie(cookieName).then((cookie) => {
       if (cookie && cookie.value === expectedId) {
         found = true;
-        cy.task('log', `✅ Affiliate ID found in cookie: ${cookieName} = ${cookie.value}`);
+        cy.task('log', `[PASS] Affiliate ID found in cookie: ${cookieName} = ${cookie.value}`);
       }
     });
   });
@@ -102,14 +102,14 @@ Cypress.Commands.add('verifyAffiliateStored', (expectedId) => {
       const value = win.localStorage.getItem(key);
       if (value === expectedId) {
         found = true;
-        cy.task('log', `✅ Affiliate ID found in localStorage: ${key} = ${value}`);
+        cy.task('log', `[PASS] Affiliate ID found in localStorage: ${key} = ${value}`);
       }
     });
   });
   
   cy.then(() => {
     if (!found) {
-      cy.task('log', `⚠️ Affiliate ID not found in cookies or localStorage. Check implementation.`);
+      cy.task('log', `[WARNING] Affiliate ID not found in cookies or localStorage. Check implementation.`);
     }
   });
 });
@@ -167,5 +167,5 @@ Cypress.Commands.add('clearReferralData', () => {
 //   // Verify discount applied (if applicable)
 //   cy.get('[data-testid="discount-amount"]').should('be.visible');
 //   
-//   cy.task('log', `✅ Referral code applied at checkout: ${referralCode}`);
+//   cy.task('log', `[PASS] Referral code applied at checkout: ${referralCode}`);
 // });

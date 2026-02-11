@@ -31,11 +31,11 @@ describe('Phone Compatibility - Checker Tool', { tags: ['@regression', '@compati
       const hasForm = $body.find('select, input').length > 0;
       
       if (hasModal) {
-        cy.task('log', `✅ Phone checker modal opened`);
+        cy.task('log', `[PASS] Phone checker modal opened`);
       } else if (hasForm) {
-        cy.task('log', `✅ Phone checker form visible`);
+        cy.task('log', `[PASS] Phone checker form visible`);
       } else {
-        cy.task('log', `⚠️ Phone checker UI not found - implementation may vary`);
+        cy.task('log', `[WARNING] Phone checker UI not found - implementation may vary`);
       }
     });
   });
@@ -76,7 +76,7 @@ describe('Phone Compatibility - Checker Tool', { tags: ['@regression', '@compati
     // Try to select Apple iPhone 14 (known compatible)
     const compatiblePhone = TEST_DATA.COMPATIBLE_PHONES[0];
     
-    cy.task('log', `🔍 Testing compatible phone: ${compatiblePhone.brand} ${compatiblePhone.model}`);
+    cy.task('log', `[DEBUG] Testing compatible phone: ${compatiblePhone.brand} ${compatiblePhone.model}`);
     
     // Implementation-specific - adjust selectors as needed
   });
@@ -90,9 +90,9 @@ describe('Phone Compatibility - Checker Tool', { tags: ['@regression', '@compati
           .should('be.visible')
           .and('have.attr', 'href');
         
-        cy.task('log', `✅ Compatible devices link found`);
+        cy.task('log', `[PASS] Compatible devices link found`);
       } else {
-        cy.task('log', `⚠️ No compatible devices link found`);
+        cy.task('log', `[WARNING] No compatible devices link found`);
       }
     });
   });

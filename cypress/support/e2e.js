@@ -25,7 +25,7 @@ beforeEach(() => {
   
   // Log test start
   const testName = Cypress.currentTest.title;
-  cy.task('log', `🚀 Starting test: ${testName}`);
+  cy.task('log', `[TEST START] ${testName}`);
   
   // Dismiss cookie banner automatically
   cy.dismissCookieBanner();
@@ -51,11 +51,11 @@ afterEach(function() {
     cy.window().then((win) => {
       const errors = win.console.errors || [];
       if (errors.length > 0) {
-        cy.task('log', `⚠️ Console errors: ${JSON.stringify(errors)}`);
+        cy.task('log', `[WARNING] Console errors: ${JSON.stringify(errors)}`);
       }
     });
   } else {
-    cy.task('log', `✅ Test passed: ${testName}`);
+    cy.task('log', `[PASS] ${testName}`);
   }
 });
 

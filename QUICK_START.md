@@ -1,4 +1,4 @@
-# Quick Start Guide 🚀
+# Quick Start Guide 
 
 ## Run Your First Test in 2 Minutes
 
@@ -29,7 +29,7 @@ npm run test:smoke
 
 ## What Tests Are Available?
 
-### ✅ Smoke Tests (Ready to run)
+###  Smoke Tests (Ready to run)
 
 | Test                   | What it checks                     | Time |
 | ---------------------- | ---------------------------------- | ---- |
@@ -40,7 +40,7 @@ npm run test:smoke
 | `05-external-links`    | App Store, Google Play links valid | 15s  |
 | `06-page-performance`  | Page loads in <5s                  | 20s  |
 
-### 🧪 Regression Tests (Ready to run)
+###  Regression Tests (Ready to run)
 
 | Test                 | What it checks                          |
 | -------------------- | --------------------------------------- |
@@ -110,4 +110,4 @@ Increase timeout in `cypress.config.js`:
 
 ---
 
-**You're ready! Start testing. 🎯**
+**You're ready! Start testing. **

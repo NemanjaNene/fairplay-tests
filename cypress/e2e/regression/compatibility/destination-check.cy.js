@@ -33,11 +33,11 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
       const hasSearch = $body.find('input[type="search"], input[type="text"]').length > 0;
       
       if (hasModal) {
-        cy.task('log', `✅ Destination checker modal opened`);
+        cy.task('log', `[PASS] Destination checker modal opened`);
       } else if (hasSearch) {
-        cy.task('log', `✅ Destination search visible`);
+        cy.task('log', `[PASS] Destination search visible`);
       } else {
-        cy.task('log', `⚠️ Destination checker UI not found - implementation may vary`);
+        cy.task('log', `[WARNING] Destination checker UI not found - implementation may vary`);
       }
     });
   });
@@ -50,9 +50,9 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
       if (hasMap) {
         cy.task('log', `🗺️ Coverage map found`);
       } else if (hasList) {
-        cy.task('log', `📋 Coverage list found`);
+        cy.task('log', ` Coverage list found`);
       } else {
-        cy.task('log', `⚠️ Coverage visualization not found`);
+        cy.task('log', `[WARNING] Coverage visualization not found`);
       }
     });
   });
@@ -63,7 +63,7 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
     keyCountries.forEach(country => {
       cy.get('body').then($body => {
         if ($body.text().includes(country)) {
-          cy.task('log', `✅ ${country} found in coverage`);
+          cy.task('log', `[PASS] ${country} found in coverage`);
         }
       });
     });
@@ -77,7 +77,7 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
       cy.get('body').then($body => {
         if ($body.text().includes(country)) {
           found = true;
-          cy.task('log', `✅ Global coverage mentioned: ${country}`);
+          cy.task('log', `[PASS] Global coverage mentioned: ${country}`);
         }
       });
     });
@@ -93,7 +93,7 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
           .first()
           .should('have.attr', 'href');
         
-        cy.task('log', `✅ Full coverage list link found`);
+        cy.task('log', `[PASS] Full coverage list link found`);
       }
     });
   });

@@ -20,7 +20,7 @@
 //   cy.url().should('include', '/dashboard');
 //   cy.get('[data-testid="user-menu"]').should('be.visible');
 //   
-//   cy.task('log', `✅ Logged in as: ${email}`);
+//   cy.task('log', `[PASS] Logged in as: ${email}`);
 // });
 
 /**
@@ -41,7 +41,7 @@
 //     cy.setCookie('auth_token', token);
 //     // OR: cy.window().then(win => win.localStorage.setItem('authToken', token));
 //     
-//     cy.task('log', `✅ API login successful: ${email}`);
+//     cy.task('log', `[PASS] API login successful: ${email}`);
 //   });
 // });
 
@@ -64,7 +64,7 @@
 //   // Wait for confirmation
 //   cy.contains(/success|welcome|confirm/i, { timeout: 10000 }).should('be.visible');
 //   
-//   cy.task('log', `✅ Registered new user: ${email}`);
+//   cy.task('log', `[PASS] Registered new user: ${email}`);
 // });
 
 /**
@@ -80,7 +80,7 @@
 //   // Verify session cleared
 //   cy.getCookie('auth_token').should('not.exist');
 //   
-//   cy.task('log', `✅ Logged out successfully`);
+//   cy.task('log', `[PASS] Logged out successfully`);
 // });
 
 /**
@@ -101,7 +101,7 @@
 //   cy.request('POST', '/api/test/generate-token', { email: userEmail })
 //     .then(response => {
 //       cy.setCookie('auth_token', response.body.token);
-//       cy.task('log', `✅ Forced login state for: ${userEmail}`);
+//       cy.task('log', `[PASS] Forced login state for: ${userEmail}`);
 //     });
 // });
 

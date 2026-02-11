@@ -87,14 +87,14 @@ describe('Page Performance - Load Time', { tags: ['@smoke', '@performance'] }, (
       const errors = win.console.errors || [];
       
       if (errors.length > 0) {
-        cy.task('log', `⚠️ Console errors found: ${errors.length}`);
+        cy.task('log', `[WARNING] Console errors found: ${errors.length}`);
         errors.forEach(err => {
           cy.task('log', `   - ${err}`);
         });
         
         // Don't fail test - log only (some 3rd party scripts may error)
       } else {
-        cy.task('log', `✅ No console errors detected`);
+        cy.task('log', `[PASS] No console errors detected`);
       }
     });
   });
@@ -107,7 +107,7 @@ describe('Page Performance - Load Time', { tags: ['@smoke', '@performance'] }, (
         if (cacheControl) {
           cy.task('log', `📦 Cache-Control for ${req.url.split('/').pop()}: ${cacheControl}`);
         } else {
-          cy.task('log', `⚠️ No cache-control for: ${req.url.split('/').pop()}`);
+          cy.task('log', `[WARNING] No cache-control for: ${req.url.split('/').pop()}`);
         }
       });
     });

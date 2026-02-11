@@ -6,7 +6,7 @@ This document explains the **senior-level decisions** behind this test automatio
 
 ---
 
-## 🎯 Design Philosophy
+##  Design Philosophy
 
 ### 1. Stability Over Speed
 
@@ -39,7 +39,7 @@ This document explains the **senior-level decisions** behind this test automatio
 
 ---
 
-## 📊 Test Pyramid
+##  Test Pyramid
 
 ```
 Integration (10%) ← Smoke tests, critical path
@@ -165,13 +165,13 @@ API Tests (70%) ← Backend validation (future)
 
 ### Solution: **Zero hard sleeps**
 
-#### ❌ BAD: Hard sleep
+####  BAD: Hard sleep
 
 ```javascript
 cy.wait(5000); // What if it takes 6 seconds? Or 2 seconds?
 ```
 
-#### ✅ GOOD: Wait for condition
+####  GOOD: Wait for condition
 
 ```javascript
 // Wait for DOM element
@@ -190,7 +190,7 @@ cy.waitForNetworkIdle();
 
 ---
 
-## 🎨 Selector Strategy
+##  Selector Strategy
 
 ### Problem: Tests break on UI redesign
 
@@ -228,7 +228,7 @@ cy.waitForNetworkIdle();
    cy.get(".btn-primary"); // Can change with redesign
    ```
 
-#### ❌ NEVER use:
+####  NEVER use:
 
 - XPath (slow, brittle)
 - Nested selectors (`.header > nav > ul > li:nth-child(3)`)
@@ -253,10 +253,10 @@ cy.waitForNetworkIdle();
 
 ```javascript
 // Cypress auto-retries assertions (4s default)
-cy.get('[data-testid="result"]').should("be.visible"); // ✅ Auto-retry
+cy.get('[data-testid="result"]').should("be.visible"); //  Auto-retry
 
 // Cypress DOES NOT auto-retry actions
-cy.get('[data-testid="button"]').click(); // ❌ No retry
+cy.get('[data-testid="button"]').click(); //  No retry
 
 // Custom retry for actions
 Cypress.Commands.add("clickWithRetry", (selector, retries = 3) => {
@@ -278,7 +278,7 @@ Cypress.Commands.add("clickWithRetry", (selector, retries = 3) => {
 
 ---
 
-## 🧪 Test Data Strategy
+##  Test Data Strategy
 
 ### Problem: Tests interfere with each other (parallel execution)
 
@@ -350,7 +350,7 @@ npx cypress run --env grepTags="@smoke+@critical"
 
 ---
 
-## 📦 Parallel Execution
+##  Parallel Execution
 
 ### Problem: 100 tests, 50 minutes → too slow
 
@@ -379,7 +379,7 @@ sorry-cypress start
 
 ---
 
-## 🐛 Debugging Strategy
+##  Debugging Strategy
 
 ### When test fails:
 
@@ -425,7 +425,7 @@ cy.debug(); // Open DevTools debugger
 
 ---
 
-## 🚀 CI/CD Integration
+##  CI/CD Integration
 
 ### Stages:
 
@@ -463,22 +463,22 @@ on:
 
 **Example**: Testing 100 edge cases for password validation
 
-- ❌ Bad: 100 Cypress tests (slow, brittle)
-- ✅ Good: 1 Cypress test (happy path) + 99 API/unit tests (fast)
+-  Bad: 100 Cypress tests (slow, brittle)
+-  Good: 1 Cypress test (happy path) + 99 API/unit tests (fast)
 
 ### 2. Test user flows, not pages
 
 **Example**: Purchase flow
 
-- ❌ Bad: Test each page individually
-- ✅ Good: Test end-to-end journey (select plan → payment → confirmation)
+-  Bad: Test each page individually
+-  Good: Test end-to-end journey (select plan → payment → confirmation)
 
 ### 3. Fail fast, fail clear
 
 **Example**: Test fails at step 5 of 10
 
-- ❌ Bad: Generic error "Element not found"
-- ✅ Good: "Expected payment status 'success' but got 'pending' at step 5"
+-  Bad: Generic error "Element not found"
+-  Good: "Expected payment status 'success' but got 'pending' at step 5"
 
 ### 4. No test is better than a flaky test
 
@@ -525,4 +525,4 @@ When APIs/test environment available:
 
 **Built for scale. Designed for stability. Optimized for speed.**
 
-🚀 **Senior QA Automation at its finest.**
+ **Senior QA Automation at its finest.**

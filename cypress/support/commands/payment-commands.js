@@ -45,7 +45,7 @@
 //   cy.wait('@paymentRequest', { timeout: 20000 }).then(interception => {
 //     expect(interception.response.statusCode).to.be.oneOf([200, 201]);
 //     
-//     cy.task('log', `✅ Payment processed: ${interception.response.body.status}`);
+//     cy.task('log', `[PASS] Payment processed: ${interception.response.body.status}`);
 //   });
 //   
 //   // Verify confirmation page
@@ -80,7 +80,7 @@
 //   cy.get('[data-testid="esim-qr-code"]').should('be.visible');
 //   cy.get('[data-testid="activation-instructions"]').should('be.visible');
 //   
-//   cy.task('log', `✅ Purchase complete: ${planType}`);
+//   cy.task('log', `[PASS] Purchase complete: ${planType}`);
 // });
 
 /**
@@ -99,7 +99,7 @@
 //     // Verify error message shown
 //     cy.contains(/declined|failed|invalid/i).should('be.visible');
 //     
-//     cy.task('log', `✅ Payment declined as expected`);
+//     cy.task('log', `[PASS] Payment declined as expected`);
 //   });
 // });
 

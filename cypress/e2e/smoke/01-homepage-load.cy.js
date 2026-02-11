@@ -88,7 +88,7 @@ describe('Homepage - Critical Elements', { tags: ['@smoke', '@critical'] }, () =
     cy.window().then((win) => {
       const errors = win.console.errors || [];
       if (errors.length > 0) {
-        cy.log(`⚠️ Console errors detected: ${errors.length}`);
+        cy.log(`[WARNING] Console errors detected: ${errors.length}`);
         cy.task('log', `Console errors: ${JSON.stringify(errors)}`);
       }
       // Don't fail test, just log (some 3rd party scripts may cause errors)

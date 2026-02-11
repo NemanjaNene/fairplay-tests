@@ -1,4 +1,4 @@
-# 📋 Pregled Svih Testova - FairPlay Cypress
+#  Pregled Svih Testova - FairPlay Cypress
 
 Kompletna lista testova i šta svaki proverava.
 
@@ -151,7 +151,7 @@ Kompletna lista testova i šta svaki proverava.
 
 ---
 
-## 🧪 REGRESSION TESTS (5 suites, ~20-30 min)
+##  REGRESSION TESTS (5 suites, ~20-30 min)
 
 **Cilj**: Detaljna provera svih funkcionalnosti  
 **Kada pokrenuti**: Nightly builds, pre release-a  
@@ -297,18 +297,18 @@ Ovi testovi su **spremni kao templates** ali čekaju test environment/backend.
 
 ---
 
-## 📊 Test Coverage Summary
+##  Test Coverage Summary
 
 | Kategorija             | Testova        | Status       | Runtime     |
 | ---------------------- | -------------- | ------------ | ----------- |
-| **Smoke Tests**        | ~55 tests      | ✅ Ready     | 8 min       |
-| **Regression Tests**   | ~31 tests      | ✅ Ready     | 20-30 min   |
+| **Smoke Tests**        | ~55 tests      |  Ready     | 8 min       |
+| **Regression Tests**   | ~31 tests      |  Ready     | 20-30 min   |
 | **Templates (Future)** | ~17 tests      | ⏳ Template  | TBD         |
 | **UKUPNO**             | **~103 tests** | **86 ready** | **~30 min** |
 
 ---
 
-## 🎯 Execution Strategy
+##  Execution Strategy
 
 ### Daily (Every PR):
 
@@ -338,7 +338,7 @@ npm run test:compatibility # Compatibility tests
 
 ---
 
-## 📝 Test Data
+##  Test Data
 
 ### Fixtures Used:
 
@@ -355,7 +355,7 @@ npm run test:compatibility # Compatibility tests
 
 ---
 
-## 🔧 Maintenance
+##  Maintenance
 
 ### Kako dodati novi test:
 

@@ -49,7 +49,7 @@ describe('Referral Tracking - Cookie Persistence', { tags: ['@regression', '@ref
       cy.waitForPageLoad();
       cy.wait(1000);
       
-      cy.task('log', `🔍 Testing referral format: ${format.param}=${format.code}`);
+      cy.task('log', `[DEBUG] Testing referral format: ${format.param}=${format.code}`);
       
       // Check if stored (implementation may vary)
       cy.window().then(win => {
@@ -75,7 +75,7 @@ describe('Referral Tracking - Cookie Persistence', { tags: ['@regression', '@ref
     cy.wait(1000);
     
     // First referral should still be stored (common pattern)
-    cy.task('log', `🔍 Checking if first referral (${firstRef}) is preserved`);
+    cy.task('log', `[DEBUG] Checking if first referral (${firstRef}) is preserved`);
     
     // Log current cookie/localStorage state
     cy.window().then(win => {
@@ -124,7 +124,7 @@ describe('Referral Tracking - Cookie Persistence', { tags: ['@regression', '@ref
       // Page should still load without errors
       cy.get('body').should('be.visible');
       
-      cy.task('log', `✅ Page handled invalid referral code: ${code.substring(0, 50)}`);
+      cy.task('log', `[PASS] Page handled invalid referral code: ${code.substring(0, 50)}`);
     });
   });
 
@@ -136,7 +136,7 @@ describe('Referral Tracking - Cookie Persistence', { tags: ['@regression', '@ref
       cy.visitWithReferral(code);
       cy.wait(1000);
       
-      cy.task('log', `🔍 Testing case: ${code}`);
+      cy.task('log', `[DEBUG] Testing case: ${code}`);
     });
   });
 

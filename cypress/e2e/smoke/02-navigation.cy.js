@@ -33,9 +33,9 @@ describe('Navigation - Key Links', { tags: ['@smoke', '@navigation'] }, () => {
       
       // Soft assertion - log warning instead of failing
       if (!hasBranding) {
-        cy.task('log', '⚠️ Warning: No obvious branding element found in header');
+        cy.task('log', '[WARNING] Warning: No obvious branding element found in header');
       } else {
-        cy.task('log', '✅ Header branding element found');
+        cy.task('log', '[PASS] Header branding element found');
       }
       
       // Just verify header exists and has some content
@@ -57,7 +57,7 @@ describe('Navigation - Key Links', { tags: ['@smoke', '@navigation'] }, () => {
     // Traži link koji vodi na /help-center ili sadrži "help" u href-u
     cy.get('a[href*="help"]').should('exist').and('have.attr', 'href');
     
-    cy.task('log', '✅ Help Center link found');
+    cy.task('log', '[PASS] Help Center link found');
   });
 
   it('should display footer', () => {

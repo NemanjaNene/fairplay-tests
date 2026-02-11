@@ -4,30 +4,30 @@
  */
 
 export const logTestInfo = (message, type = 'info') => {
-  const icons = {
-    info: 'ℹ️',
-    success: '✅',
-    warning: '⚠️',
-    error: '❌',
-    debug: '🐛',
-    network: '🌐',
-    data: '📊'
+  const prefixes = {
+    info: '[INFO]',
+    success: '[SUCCESS]',
+    warning: '[WARNING]',
+    error: '[ERROR]',
+    debug: '[DEBUG]',
+    network: '[NETWORK]',
+    data: '[DATA]'
   };
   
-  const icon = icons[type] || 'ℹ️';
-  cy.log(`${icon} ${message}`);
-  cy.task('log', `${icon} ${message}`);
+  const prefix = prefixes[type] || '[INFO]';
+  cy.log(`${prefix} ${message}`);
+  cy.task('log', `${prefix} ${message}`);
 };
 
 export const logNetworkRequest = (method, url, status) => {
-  const emoji = status >= 200 && status < 300 ? '✅' : '❌';
-  cy.task('log', `${emoji} ${method} ${url} - Status: ${status}`);
+  const prefix = status >= 200 && status < 300 ? '[SUCCESS]' : '[FAIL]';
+  cy.task('log', `${prefix} ${method} ${url} - Status: ${status}`);
 };
 
 export const logTestStep = (step) => {
-  cy.task('log', `📍 Step: ${step}`);
+  cy.task('log', `[STEP] ${step}`);
 };
 
 export const logDebug = (data) => {
-  cy.task('log', `🐛 Debug: ${JSON.stringify(data)}`);
+  cy.task('log', `[DEBUG] ${JSON.stringify(data)}`);
 };

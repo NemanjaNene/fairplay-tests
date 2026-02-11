@@ -107,7 +107,7 @@ jobs:
       - name: Notify on failure (optional)
         if: failure()
         run: |
-          echo "❌ Regression tests failed on ${{ matrix.browser }}"
+          echo " Regression tests failed on ${{ matrix.browser }}"
           # Add Slack/email notification here
 
   # Mobile tests - Run nightly

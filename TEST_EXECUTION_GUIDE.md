@@ -1,10 +1,10 @@
-# Test Execution Guide 📋
+# Test Execution Guide 
 
 Complete guide for running tests in different scenarios.
 
 ---
 
-## 🚀 Quick Commands
+##  Quick Commands
 
 ```bash
 # Interactive mode (best for development)
@@ -22,7 +22,7 @@ npm run test:regression
 
 ---
 
-## 📦 Test Categories
+##  Test Categories
 
 ### 1. Smoke Tests (6 suites, ~8 min)
 
@@ -74,7 +74,7 @@ npm run test:affiliate   # Affiliate only
 
 ---
 
-## 🌐 Browser Testing
+##  Browser Testing
 
 ### Chrome (default)
 
@@ -124,7 +124,7 @@ npm test
 
 ---
 
-## 🎯 Advanced Execution
+##  Advanced Execution
 
 ### Run specific test file
 
@@ -159,7 +159,7 @@ npx cypress run --config defaultCommandTimeout=15000
 
 ---
 
-## 🔍 Debugging
+##  Debugging
 
 ### Open Test Runner (interactive)
 
@@ -195,7 +195,7 @@ DEBUG=cypress:* npm test
 
 ---
 
-## 📊 Reporting
+##  Reporting
 
 ### Default (terminal output)
 
@@ -220,7 +220,7 @@ Then open `mochawesome-report/index.html`
 
 ---
 
-## 🔧 Environment Variables
+##  Environment Variables
 
 ### Set base URL
 
@@ -285,7 +285,7 @@ npx cypress run --config video=false
 
 ---
 
-## 🐛 Common Issues
+##  Common Issues
 
 ### Issue: Tests timeout
 
@@ -328,7 +328,7 @@ cy.get('[data-testid="element"]', { timeout: 10000 }).should("be.visible");
 
 ---
 
-## 🎯 CI/CD Integration
+##  CI/CD Integration
 
 ### GitHub Actions
 
@@ -365,4 +365,4 @@ stage('E2E Tests') {
 
 ---
 
-**Happy Testing! 🚀**
+**Happy Testing! **
