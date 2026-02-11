@@ -79,23 +79,33 @@ describe('SEO - Meta Tags Validation', { tags: ['@regression', '@seo'] }, () => 
       });
   });
 
-  it('should have canonical URL', () => {
+  it('should have canonical URL pointing to correct domain', () => {
     cy.get('link[rel="canonical"]').should('exist').then($link => {
       const canonical = $link.attr('href');
       expect(canonical).to.include('https://');
       cy.task('log', `[SEO] Canonical URL: ${canonical}`);
       
-      // Check if canonical points to current domain
+      // CRITICAL: Canonical must NOT point to old domain
+      expect(canonical).to.not.include('fairplay-mobile.com');
+      cy.task('log', '[SEO] Canonical does NOT point to old domain (fairplay-mobile.com)');
+      
+      // Canonical should point to current domain
       cy.url().then(currentUrl => {
         const currentDomain = new URL(currentUrl).hostname;
         const canonicalDomain = new URL(canonical).hostname;
+        
+        cy.task('log', `[SEO] Current domain: ${currentDomain}`);
+        cy.task('log', `[SEO] Canonical domain: ${canonicalDomain}`);
         
         if (currentDomain !== canonicalDomain) {
           cy.task('log', `[WARNING] Canonical domain (${canonicalDomain}) differs from current domain (${currentDomain})`);
           cy.task('log', '[WARNING] This may cause SEO issues - search engines will index the canonical domain instead!');
         } else {
-          cy.task('log', '[SEO] Canonical URL matches current domain');
+          cy.task('log', '[PASS] Canonical URL matches current domain');
         }
+        
+        // Assert domains match
+        expect(canonicalDomain).to.equal(currentDomain);
       });
     });
   });
