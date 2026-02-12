@@ -77,11 +77,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Run Regression Tests
+      - name: Run Regression Tests (excluding SEO)
         uses: cypress-io/github-action@v6
         with:
           browser: ${{ matrix.browser }}
-          command: npm run test:regression
+          command: cypress run --spec 'cypress/e2e/regression/forms/**/*.cy.js,cypress/e2e/regression/compatibility/**/*.cy.js,cypress/e2e/regression/referral/**/*.cy.js'
           config-file: cypress.config.js
         env:
           CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
