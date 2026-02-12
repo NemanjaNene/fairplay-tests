@@ -10,9 +10,8 @@ on:
     - cron: '0 9 * * *'
 
 jobs:
-  # Smoke tests - Run on every PR
+  # Smoke tests - Run on every push and scheduled
   smoke-tests:
-    if: github.event_name == 'pull_request' || github.event_name == 'push'
     runs-on: ubuntu-latest
     
     strategy:
@@ -57,9 +56,8 @@ jobs:
           path: cypress/videos
           retention-days: 7
 
-  # Regression tests - Run nightly
+  # Regression tests - Run on push and scheduled
   regression-tests:
-    if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
     
     strategy:
@@ -110,7 +108,7 @@ jobs:
           echo " Regression tests failed on ${{ matrix.browser }}"
           # Add Slack/email notification here
 
-  # Mobile tests - Run nightly
+  # Mobile tests - Run on scheduled only
   mobile-tests:
     if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
