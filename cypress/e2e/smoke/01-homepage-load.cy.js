@@ -64,7 +64,7 @@ describe('Homepage - Critical Elements', { tags: ['@smoke', '@critical'] }, () =
   });
 
   it('should display "Check Your Destination" CTA', () => {
-    cy.contains(/check.*destination|135\+.*destination/i)
+    cy.contains(/check.*destination|185\+.*destination/i)
       .should('be.visible');
   });
 
@@ -73,8 +73,8 @@ describe('Homepage - Critical Elements', { tags: ['@smoke', '@critical'] }, () =
       .should('be.visible');
   });
 
-  it('should display coverage information (135+ destinations)', () => {
-    cy.contains(/135\+/i).should('be.visible');
+  it('should display coverage information (185+ destinations)', () => {
+    cy.contains(/185\+/i).should('be.visible');
     cy.contains(/destination/i).should('be.visible');
   });
 

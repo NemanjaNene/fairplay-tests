@@ -15,8 +15,8 @@ describe('Destination Coverage - Checker Tool', { tags: ['@regression', '@compat
       .should('be.visible');
   });
 
-  it('should display coverage information (135+ destinations)', () => {
-    cy.contains(/135\+/i).should('be.visible');
+  it('should display coverage information (185+ destinations)', () => {
+    cy.contains(/185\+/i).should('be.visible');
     cy.contains(/destination/i).should('be.visible');
   });
 

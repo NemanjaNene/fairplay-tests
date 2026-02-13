@@ -106,8 +106,8 @@ describe('Pricing - Display & Accuracy', { tags: ['@smoke', '@pricing'] }, () =>
 
   context('Pricing Details', () => {
     
-    it('should mention 135+ destinations', () => {
-      cy.contains(/135\+/i).should('be.visible');
+    it('should mention 185+ destinations', () => {
+      cy.contains(/185\+/i).should('be.visible');
     });
 
     it('should mention 5G premium connectivity', () => {

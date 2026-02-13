@@ -26,7 +26,7 @@ Kompletna lista testova i šta svaki proverava.
 | `should display Day Passes pricing section`               | Day Pass pricing (3/7/14 dana) je prikazan sa cenama (€25, €50, €75) | Day Pass proizvodi su dostupni          |
 | `should display "Check Your Destination" CTA`             | CTA za proveru destinacije postoji                                   | Korisnik može da proveri coverage       |
 | `should display "Check Phone Compatibility" CTA`          | CTA za proveru telefona postoji                                      | Korisnik može da proveri kompatibilnost |
-| `should display coverage information (135+ destinations)` | "135+" tekst je vidljiv                                              | Coverage info je jasan                  |
+| `should display coverage information (185+ destinations)` | "185+" tekst je vidljiv                                              | Coverage info je jasan                  |
 | `should display key USPs`                                 | USP-ovi su vidljivi (Unlimited, One eSIM, No Waste)                  | Value proposition je jasan              |
 | `should have no console errors on page load`              | Nema JavaScript greški u konzoli                                     | Tehnička stabilnost                     |
 
@@ -80,7 +80,7 @@ Kompletna lista testova i šta svaki proverava.
 
 | Test                                     | Šta proverava             | Zašto je važno         |
 | ---------------------------------------- | ------------------------- | ---------------------- |
-| `should mention 135+ destinations`       | "135+" tekst postoji      | Coverage je jasan      |
+| `should mention 185+ destinations`       | "185+" tekst postoji      | Coverage je jasan      |
 | `should mention 5G premium connectivity` | "5G" tekst postoji        | Speed info je jasan    |
 | `should mention free global eSIM`        | "free eSIM" tekst postoji | Dodatna vrednost jasna |
 
@@ -244,13 +244,13 @@ Kompletna lista testova i šta svaki proverava.
 | Test                                                      | Šta proverava                                      | Zašto je važno       |
 | --------------------------------------------------------- | -------------------------------------------------- | -------------------- |
 | `should have "Check Destination" CTA`                     | CTA je vidljiv                                     | User može da proveri |
-| `should display coverage information (135+ destinations)` | "135+" info je prikazan                            | Coverage je jasan    |
+| `should display coverage information (185+ destinations)` | "185+" info je prikazan                            | Coverage je jasan    |
 | `should open destination checker on click`                | Modal/search se otvara                             | Funkcionalnost radi  |
 | `should have coverage map or list visible`                | Mapa ili lista zemalja postoji                     | Visualization        |
 | `should display key European countries in coverage`       | Germany, France, Italy, Spain, Croatia su navedeni | Main markets         |
 | `should mention global coverage`                          | USA, Canada, Australia, Japan su navedeni          | Global reach         |
 
-**Test data**: 135+ destinations
+**Test data**: 185+ destinations
 
 ---
 
