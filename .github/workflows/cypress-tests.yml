@@ -8,6 +8,18 @@ on:
   schedule:
     # Run regression tests daily at 9 AM UTC
     - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      test_suite:
+        description: 'Test suite to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - smoke
+          - regression
+          - seo
 
 jobs:
   # Smoke tests - Run on every push and scheduled
@@ -76,11 +88,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
-      - name: Run Regression Tests (excluding SEO)
+      - name: Run All Regression Tests (including SEO)
         uses: cypress-io/github-action@v6
         with:
           browser: ${{ matrix.browser }}
-          spec: cypress/e2e/regression/forms/**/*.cy.js,cypress/e2e/regression/compatibility/**/*.cy.js,cypress/e2e/regression/referral/**/*.cy.js
+          spec: cypress/e2e/regression/**/*.cy.js
         env:
           CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
       
