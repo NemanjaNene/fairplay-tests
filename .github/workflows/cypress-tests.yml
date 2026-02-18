@@ -67,8 +67,9 @@ jobs:
           path: cypress/videos
           retention-days: 7
 
-  # Regression tests - Run on push and scheduled
+  # Regression tests - Run on scheduled only (daily at 9 AM)
   regression-tests:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     
     strategy:
