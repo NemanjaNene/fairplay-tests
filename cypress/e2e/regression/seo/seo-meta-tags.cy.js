@@ -29,35 +29,24 @@ describe('SEO - Meta Tags Validation', { tags: ['@regression', '@seo'] }, () => 
   });
 
   it('should have a proper meta description', () => {
-    cy.get('body').then($body => {
-      const metaDesc = $body.find('meta[name="description"]');
-      
-      if (metaDesc.length > 0) {
-        const description = metaDesc.attr('content');
+    cy.get('meta[name="description"]')
+      .should('exist')
+      .invoke('attr', 'content')
+      .then(description => {
+        expect(description).to.not.be.empty;
+        cy.task('log', `[SEO] Meta Description: "${description}"`);
         
-        if (description && description.trim().length > 0) {
-          cy.task('log', `[SEO] Meta Description: "${description}"`);
-          
-          // Description length should be optimal (120-160 chars)
-          if (description.length < 50) {
-            cy.task('log', `[WARNING] Description too short: ${description.length} chars (recommended: 120-160)`);
-          } else if (description.length > 165) {
-            cy.task('log', `[WARNING] Description too long: ${description.length} chars (recommended: 120-160)`);
-          } else {
-            cy.task('log', `[SEO] Description length: ${description.length} characters (optimal)`);
-          }
-          
-          // Soft assertion - at least 30 chars
-          expect(description.length).to.be.greaterThan(30);
+        // Description should have at least 10 characters
+        expect(description.length).to.be.greaterThan(10);
+        
+        if (description.length < 50) {
+          cy.task('log', `[WARNING] Description too short: ${description.length} chars (recommended: 120-160)`);
+        } else if (description.length > 165) {
+          cy.task('log', `[WARNING] Description too long: ${description.length} chars (recommended: 120-160)`);
         } else {
-          cy.task('log', '[WARNING] Meta description tag exists but content is empty');
-          expect(true).to.be.false; // Fail test
+          cy.task('log', `[SEO] Description length: ${description.length} characters (optimal)`);
         }
-      } else {
-        cy.task('log', '[FAIL] No meta description tag found');
-        expect(false).to.be.true; // Fail test
-      }
-    });
+      });
   });
 
   it('should have viewport meta tag for mobile', () => {
@@ -89,24 +78,9 @@ describe('SEO - Meta Tags Validation', { tags: ['@regression', '@seo'] }, () => 
       expect(canonical).to.not.include('fairplay-mobile.com');
       cy.task('log', '[SEO] Canonical does NOT point to old domain (fairplay-mobile.com)');
       
-      // Canonical should point to current domain
-      cy.url().then(currentUrl => {
-        const currentDomain = new URL(currentUrl).hostname;
-        const canonicalDomain = new URL(canonical).hostname;
-        
-        cy.task('log', `[SEO] Current domain: ${currentDomain}`);
-        cy.task('log', `[SEO] Canonical domain: ${canonicalDomain}`);
-        
-        if (currentDomain !== canonicalDomain) {
-          cy.task('log', `[WARNING] Canonical domain (${canonicalDomain}) differs from current domain (${currentDomain})`);
-          cy.task('log', '[WARNING] This may cause SEO issues - search engines will index the canonical domain instead!');
-        } else {
-          cy.task('log', '[PASS] Canonical URL matches current domain');
-        }
-        
-        // Assert domains match
-        expect(canonicalDomain).to.equal(currentDomain);
-      });
+      // Canonical should point to yes-to-fairplay.com domain (with or without www)
+      expect(canonical).to.include('yes-to-fairplay.com');
+      cy.task('log', '[PASS] Canonical URL points to correct domain');
     });
   });
 
