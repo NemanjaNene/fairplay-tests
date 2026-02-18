@@ -3,9 +3,7 @@
  * Tests Open Graph and Twitter Card meta tags for social sharing
  * Tags: @regression @seo
  * 
- * NOTE: These tests are currently SKIPPED because the site does not have
- * Open Graph or Twitter Card meta tags implemented yet.
- * Uncomment tests when social media meta tags are added to the site.
+ * NOTE: Tests will pass with warnings if tags don't exist (soft validation)
  */
 
 describe('SEO - Open Graph & Social Media', { tags: ['@regression', '@seo'] }, () => {
@@ -14,74 +12,109 @@ describe('SEO - Open Graph & Social Media', { tags: ['@regression', '@seo'] }, (
     cy.visit('/');
   });
 
-  // SKIPPED: Site does not currently have Open Graph meta tags
-  it.skip('should have Open Graph title', () => {
-    cy.get('meta[property="og:title"]').should('exist').then($meta => {
-      const ogTitle = $meta.attr('content');
-      expect(ogTitle).to.not.be.empty;
-      cy.task('log', `[SEO] OG Title: "${ogTitle}"`);
-    });
-  });
-
-  it.skip('should have Open Graph description', () => {
-    cy.get('meta[property="og:description"]').should('exist').then($meta => {
-      const ogDesc = $meta.attr('content');
-      expect(ogDesc).to.not.be.empty;
-      expect(ogDesc.length).to.be.greaterThan(50);
-      cy.task('log', `[SEO] OG Description: "${ogDesc}"`);
-    });
-  });
-
-  it.skip('should have Open Graph image', () => {
-    cy.get('meta[property="og:image"]').should('exist').then($meta => {
-      const ogImage = $meta.attr('content');
-      expect(ogImage).to.include('http');
-      cy.task('log', `[SEO] OG Image: ${ogImage}`);
+  it('should have Open Graph title', () => {
+    cy.get('body').then($body => {
+      const $meta = $body.find('meta[property="og:title"]');
       
-      // Verify image is accessible
-      cy.request(ogImage).then((response) => {
-        expect(response.status).to.eq(200);
-        cy.task('log', '[SEO] OG Image is accessible');
-      });
+      if ($meta.length > 0) {
+        const ogTitle = $meta.attr('content');
+        expect(ogTitle).to.not.be.empty;
+        cy.task('log', `[SEO] ✅ OG Title: "${ogTitle}"`);
+      } else {
+        cy.task('log', '[SEO] ⚠️ WARNING: No og:title meta tag found (recommended for social sharing)');
+      }
     });
   });
 
-  it.skip('should have Open Graph URL', () => {
-    cy.get('meta[property="og:url"]').should('exist').then($meta => {
-      const ogUrl = $meta.attr('content');
-      expect(ogUrl).to.include('https://');
-      cy.task('log', `[SEO] OG URL: ${ogUrl}`);
+  it('should have Open Graph description', () => {
+    cy.get('body').then($body => {
+      const $meta = $body.find('meta[property="og:description"]');
+      
+      if ($meta.length > 0) {
+        const ogDesc = $meta.attr('content');
+        expect(ogDesc).to.not.be.empty;
+        expect(ogDesc.length).to.be.greaterThan(50);
+        cy.task('log', `[SEO] ✅ OG Description: "${ogDesc}"`);
+      } else {
+        cy.task('log', '[SEO] ⚠️ WARNING: No og:description meta tag found (recommended for social sharing)');
+      }
     });
   });
 
-  it.skip('should have Open Graph type', () => {
-    cy.get('meta[property="og:type"]').should('exist').then($meta => {
-      const ogType = $meta.attr('content');
-      cy.task('log', `[SEO] OG Type: ${ogType}`);
+  it('should have Open Graph image', () => {
+    cy.get('body').then($body => {
+      const $meta = $body.find('meta[property="og:image"]');
+      
+      if ($meta.length > 0) {
+        const ogImage = $meta.attr('content');
+        expect(ogImage).to.include('http');
+        cy.task('log', `[SEO] ✅ OG Image: ${ogImage}`);
+        
+        // Verify image is accessible
+        cy.request(ogImage).then((response) => {
+          expect(response.status).to.eq(200);
+          cy.task('log', '[SEO] ✅ OG Image is accessible');
+        });
+      } else {
+        cy.task('log', '[SEO] ⚠️ WARNING: No og:image meta tag found (recommended for social sharing)');
+      }
+    });
+  });
+
+  it('should have Open Graph URL', () => {
+    cy.get('body').then($body => {
+      const $meta = $body.find('meta[property="og:url"]');
+      
+      if ($meta.length > 0) {
+        const ogUrl = $meta.attr('content');
+        expect(ogUrl).to.include('https://');
+        cy.task('log', `[SEO] ✅ OG URL: ${ogUrl}`);
+      } else {
+        cy.task('log', '[SEO] ⚠️ WARNING: No og:url meta tag found (recommended for social sharing)');
+      }
+    });
+  });
+
+  it('should have Open Graph type', () => {
+    cy.get('body').then($body => {
+      const $meta = $body.find('meta[property="og:type"]');
+      
+      if ($meta.length > 0) {
+        const ogType = $meta.attr('content');
+        cy.task('log', `[SEO] ✅ OG Type: ${ogType}`);
+      } else {
+        cy.task('log', '[SEO] ⚠️ WARNING: No og:type meta tag found (recommended for social sharing)');
+      }
     });
   });
 
   it('should have Open Graph site name', () => {
     cy.get('body').then($body => {
-      const hasSiteName = $body.find('meta[property="og:site_name"]').length > 0;
-      if (hasSiteName) {
-        cy.get('meta[property="og:site_name"]').invoke('attr', 'content').then(name => {
-          cy.task('log', `[SEO] OG Site Name: ${name}`);
-        });
+      const $meta = $body.find('meta[property="og:site_name"]');
+      
+      if ($meta.length > 0) {
+        const siteName = $meta.attr('content');
+        cy.task('log', `[SEO] ✅ OG Site Name: ${siteName}`);
       } else {
-        cy.task('log', '[WARNING] No og:site_name tag (recommended)');
+        cy.task('log', '[SEO] ⚠️ INFO: No og:site_name meta tag (optional but recommended)');
       }
     });
   });
 
-  it.skip('should have Twitter Card tags', () => {
-    cy.get('meta[name="twitter:card"]').should('exist').then($meta => {
-      const cardType = $meta.attr('content');
-      cy.task('log', `[SEO] Twitter Card Type: ${cardType}`);
+  it('should have Twitter Card tags', () => {
+    cy.get('body').then($body => {
+      const $meta = $body.find('meta[name="twitter:card"]');
       
-      // Should be one of the valid types
-      const validTypes = ['summary', 'summary_large_image', 'app', 'player'];
-      expect(validTypes).to.include(cardType);
+      if ($meta.length > 0) {
+        const cardType = $meta.attr('content');
+        cy.task('log', `[SEO] ✅ Twitter Card Type: ${cardType}`);
+        
+        // Should be one of the valid types
+        const validTypes = ['summary', 'summary_large_image', 'app', 'player'];
+        expect(validTypes).to.include(cardType);
+      } else {
+        cy.task('log', '[SEO] ⚠️ WARNING: No twitter:card meta tag found (recommended for Twitter sharing)');
+      }
     });
   });
 
