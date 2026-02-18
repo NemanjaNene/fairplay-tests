@@ -14,6 +14,7 @@
     "test:compatibility": "cypress run --spec 'cypress/e2e/regression/compatibility/**/*.cy.js'",
     "test:seo": "cypress run --spec 'cypress/e2e/regression/seo/**/*.cy.js'",
     "test:forms": "cypress run --spec 'cypress/e2e/regression/forms/**/*.cy.js'",
+    "test:audit": "cypress run --spec 'cypress/e2e/validation/**/*.cy.js' --headed",
     "test:chrome": "cypress run --browser chrome",
     "test:firefox": "cypress run --browser firefox",
     "test:edge": "cypress run --browser edge",
@@ -34,6 +35,10 @@
   ],
   "author": "QA Team",
   "license": "ISC",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "devDependencies": {
     "@faker-js/faker": "^10.2.0",
     "cypress": "^14.5.4"
