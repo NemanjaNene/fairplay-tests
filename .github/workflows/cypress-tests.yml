@@ -36,7 +36,6 @@ jobs:
         with:
           browser: ${{ matrix.browser }}
           command: npm run test:smoke
-          config-file: cypress.config.js
         env:
           CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
       
@@ -81,8 +80,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: ${{ matrix.browser }}
-          command: cypress run --spec 'cypress/e2e/regression/forms/**/*.cy.js,cypress/e2e/regression/compatibility/**/*.cy.js,cypress/e2e/regression/referral/**/*.cy.js'
-          config-file: cypress.config.js
+          spec: cypress/e2e/regression/forms/**/*.cy.js,cypress/e2e/regression/compatibility/**/*.cy.js,cypress/e2e/regression/referral/**/*.cy.js
         env:
           CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
       
@@ -131,7 +129,6 @@ jobs:
         with:
           browser: chrome
           command: npm run test:mobile
-          config-file: cypress.config.js
         env:
           CYPRESS_BASE_URL: https://www.yes-to-fairplay.com
       
