@@ -27,8 +27,17 @@ describe('Page Performance - Load Time', { tags: ['@smoke', '@performance'] }, (
     cy.visit('/');
     
     cy.get('img').each($img => {
-      // Check if image has loaded (naturalWidth > 0)
-      expect($img[0].naturalWidth).to.be.greaterThan(0, `Image ${$img.attr('src')} failed to load`);
+      const src = $img.attr('src');
+      const isSVG = src && src.endsWith('.svg');
+      
+      // SVG images may have naturalWidth = 0 even when loaded
+      // For SVG, check if complete flag is set instead
+      if (isSVG) {
+        expect($img[0].complete, `SVG image ${src} did not complete loading`).to.be.true;
+      } else {
+        // For raster images (png, jpg, webp), check naturalWidth
+        expect($img[0].naturalWidth, `Image ${src} failed to load`).to.be.greaterThan(0);
+      }
     });
   });
 
@@ -100,20 +109,34 @@ describe('Page Performance - Load Time', { tags: ['@smoke', '@performance'] }, (
   });
 
   it('should have proper caching headers (check via network)', () => {
+    const cacheResults = [];
+    
     cy.intercept('GET', '**/*.{js,css,png,jpg,jpeg,webp,svg}', (req) => {
       req.continue((res) => {
         const cacheControl = res.headers['cache-control'];
+        const fileName = req.url.split('/').pop();
         
-        if (cacheControl) {
-          cy.task('log', `[CACHE] Cache-Control for ${req.url.split('/').pop()}: ${cacheControl}`);
-        } else {
-          cy.task('log', `[WARNING] No cache-control for: ${req.url.split('/').pop()}`);
-        }
+        cacheResults.push({
+          file: fileName,
+          cacheControl: cacheControl || 'none'
+        });
       });
     });
     
     cy.visit('/');
-    cy.wait(3000); // Let all assets load
+    cy.wait(3000);
+    
+    cy.then(() => {
+      cy.task('log', `[CACHE] Checked ${cacheResults.length} assets for caching headers`);
+      
+      cacheResults.forEach(result => {
+        if (result.cacheControl !== 'none') {
+          cy.task('log', `[CACHE] ${result.file}: ${result.cacheControl}`);
+        } else {
+          cy.task('log', `[WARNING] No cache-control for: ${result.file}`);
+        }
+      });
+    });
   });
 
 });
