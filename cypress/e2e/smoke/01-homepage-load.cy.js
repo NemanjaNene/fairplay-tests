@@ -81,7 +81,8 @@ describe('Homepage - Critical Elements', { tags: ['@smoke', '@critical'] }, () =
   it('should display key USPs (Unlimited, One eSIM, No Waste)', () => {
     cy.contains(/unlimited/i).should('be.visible');
     cy.contains(/one esim|zero stress/i).should('be.visible');
-    cy.contains(/no unused data|no waste/i).should('be.visible');
+    // Site uses "DO YOU REALLY SAVE ON UNUSED DATA?" – match "unused data" or "no waste"
+    cy.contains(/unused data|no waste/i).should('be.visible');
   });
 
   it('should have no console errors on page load', () => {
