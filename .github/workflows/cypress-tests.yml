@@ -6,8 +6,8 @@ on:
   push:
     branches: [main]
   schedule:
-    # Run regression tests daily at 9 AM UTC
-    - cron: '0 9 * * *'
+    # Run regression tests daily at 8 AM UTC
+    - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
       test_suite:
@@ -67,7 +67,7 @@ jobs:
           path: cypress/videos
           retention-days: 7
 
-  # Regression tests - Run on scheduled only (daily at 9 AM)
+  # Regression tests - Run on scheduled only (daily at 8 AM UTC)
   regression-tests:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
